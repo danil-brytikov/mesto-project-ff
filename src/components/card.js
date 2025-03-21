@@ -1,12 +1,10 @@
 // @todo: Темплейт карточки
 const cardTemplate = document.querySelector('#card-template').content;
-const cardsContainer = document.querySelector('.places__list'); 
 
-// @todo: DOM узлы
 
 // @todo: Функция создания карточки  
 
-function createCard (cardContent) {
+function createCard (cardContent, deleteCard, cardLike, openImageModal) {
     const card = cardTemplate.querySelector('.places__item').cloneNode(true);
 
     card.querySelector('.card__image').src = cardContent.link;
@@ -15,6 +13,12 @@ function createCard (cardContent) {
 
     const cardDeleteButton = card.querySelector('.card__delete-button');
     cardDeleteButton.addEventListener('click', deleteCard);
+
+    const cardLikeButton = card.querySelector('.card__like-button');
+    cardLikeButton.addEventListener('click', () => cardLike(card));
+
+    const cardImage = card.querySelector('.card__image');
+    cardImage.addEventListener('click', () => openImageModal(cardContent));
 
     return card;
 }
@@ -25,6 +29,12 @@ function deleteCard() {
     this.parentElement.remove();
 }
 
-// @todo: Вывести карточки на страницу
+// @todo: Изменение иконки лайка
 
-initialCards.forEach(cardContent => cardsContainer.append(createCard(cardContent)));
+function cardLike(element) {
+    const likeButton = element.querySelector('.card__like-button');
+    likeButton.classList.toggle('card__like-button_is-active');
+}
+
+
+export {createCard, deleteCard, cardLike}
