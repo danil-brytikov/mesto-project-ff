@@ -10,8 +10,8 @@ function closePopup (popup) {
   document.removeEventListener('keydown', escClose);
 }
 
-function escClose (element) {
-  if( element.key === 'Escape' ) { 
+function escClose (evt) {
+  if( evt.key === 'Escape' ) { 
     closePopup(document.querySelector('.popup_is-opened'));
   }
 }

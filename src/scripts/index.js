@@ -1,5 +1,5 @@
 import '../pages/index.css';
-import {createCard, deleteCard, cardLike} from '../components/card';
+import {createCard, deleteCard, likeCard} from '../components/card';
 import {initialCards} from './cards';
 import { openPopup , closePopup} from '../components/modal';
 
@@ -16,7 +16,10 @@ const jobInput =  formEditProfile.querySelector('.popup__input_type_description'
 const addButton = document.querySelector('.profile__add-button');
 const newCardPopup = document.querySelector('.popup_type_new-card');
 const formAddElement = document.forms['new-place'];
-const allPopup = document.querySelectorAll('.popup');
+const allPopups = document.querySelectorAll('.popup');
+const imagePopup = document.querySelector('.popup_type_image');
+const popupImage = imagePopup.querySelector('.popup__image');
+const popupCaption = imagePopup.querySelector('.popup__caption');
 
 
 // @todo: Редактирование информации профиля
@@ -44,7 +47,7 @@ function handleAddFormSubmit(evt) {
         name: formAddElement.elements['place-name'].value,
         link: formAddElement.elements.link.value
     };
-    const newCard = createCard(cardContent, deleteCard, cardLike, openImageModal);
+    const newCard = createCard(cardContent, deleteCard, likeCard, openImageModal);
     cardsContainer.prepend(newCard);
     closePopup(newCardPopup);
     formAddElement.reset();
@@ -52,10 +55,7 @@ function handleAddFormSubmit(evt) {
 
 // @todo: Открытие картинки по нажатию
 function openImageModal (cardContent) {
-    const imagePopup = document.querySelector('.popup_type_image');
-    imagePopup.querySelector('.popup__caption').textContent = cardContent.name; 
-    
-    const popupImage = imagePopup.querySelector('.popup__image');
+    popupCaption.textContent = cardContent.name; 
     popupImage.src = cardContent.link;
     popupImage.alt = cardContent.name;
     openPopup (imagePopup);
@@ -63,7 +63,7 @@ function openImageModal (cardContent) {
 
 // @todo: закрытие попапов по клику на оверлей
 
-allPopup.forEach(function (item) {
+allPopups.forEach(function (item) {
     item.classList.add('popup_is-animated');
     item.addEventListener('click', (evt) => {
       if (evt.target.classList.contains('popup__close') || evt.currentTarget === evt.target) {
@@ -73,4 +73,4 @@ allPopup.forEach(function (item) {
   });
 
   // @todo: Вывести карточки на страницу
-initialCards.forEach(cardContent => cardsContainer.append(createCard(cardContent, deleteCard, cardLike, openImageModal)));
+initialCards.forEach(cardContent => cardsContainer.append(createCard(cardContent, deleteCard, likeCard, openImageModal)));
