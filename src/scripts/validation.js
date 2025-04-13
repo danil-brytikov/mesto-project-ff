@@ -2,30 +2,30 @@ export {enableValidation, clearValidation}
 
 
 function clearValidation(formValidationProf, validationConfig){
-  const InputsErrorsSelAll = formValidationProf.querySelectorAll(validationConfig.inputSelector);
+  const inputsErrorsSelAll = formValidationProf.querySelectorAll(validationConfig.inputSelector);
   const subButtn = formValidationProf.querySelector(validationConfig.submitButtonSelector);
   
   toggleButtonSubmit(validationConfig, subButtn, formValidationProf);
 
-  InputsErrorsSelAll.forEach((inputError) => 
+  inputsErrorsSelAll.forEach((inputError) => 
     hideError(validationConfig, inputError, formValidationProf)
   );
 };
 
 function enableValidation(settings) {
-  const Forms = document.querySelectorAll(settings.formSelector);
+  const allForms = document.querySelectorAll(settings.formSelector);
 
-  Forms.forEach((form) => CheckInputs(settings, form));
+  allForms.forEach((form) => checkInputs(settings, form));
 };
 
 
-function CheckInputs(settings, form) {
-  const Inputs = form.querySelectorAll(settings.inputSelector);
+function checkInputs(settings, form) {
+  const inputs = form.querySelectorAll(settings.inputSelector);
   const subButtn = form.querySelector(settings.submitButtonSelector);
 
-  Inputs.forEach((input) => {
+  inputs.forEach((input) => {
    input.addEventListener('input', () => {
-      CheckValidity(settings, input, form);
+      checkValidity(settings, input, form);
       toggleButtonSubmit(settings, subButtn, form);
     });
   });
@@ -47,7 +47,7 @@ function hideError(settings, input, form) {
   formError.textContent = null;
 };
 
-function CheckValidity(settings, input, form) {
+function checkValidity(settings, input, form) {
   if (input.validity.patternMismatch) {
     input.setCustomValidity(input.dataset.errorMessage);
   } else {

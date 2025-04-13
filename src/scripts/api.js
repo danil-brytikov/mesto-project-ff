@@ -9,7 +9,7 @@ const config = {
 };
 
 
-function ResStatus(res) {
+function resStatus(res) {
   if (res.ok) {
     return res.json();
   }
@@ -20,7 +20,7 @@ function getCardData() {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
   })
-  .then(res => ResStatus(res))
+  .then(res => resStatus(res))
 };
 
 const postHostCard = (nameCard, linkCard) => {
@@ -32,7 +32,7 @@ const postHostCard = (nameCard, linkCard) => {
       link: linkCard
     })
   })
-  .then(res => ResStatus(res))
+  .then(res => resStatus(res))
 };
 
 const deleteHostCard = (cardId) => {
@@ -40,7 +40,7 @@ const deleteHostCard = (cardId) => {
     method: 'DELETE',
     headers: config.headers,
   })
-  .then(res => ResStatus(res))
+  .then(res => resStatus(res))
 };
 
 const likeCard = (cardId, methodFetch) => {
@@ -48,7 +48,7 @@ const likeCard = (cardId, methodFetch) => {
     method: methodFetch,
     headers: config.headers,
   })
-  .then(res => ResStatus(res))
+  .then(res => resStatus(res))
 };
 
 //профиль
@@ -56,7 +56,7 @@ function getHostProfile () {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
   })
-  .then(res => ResStatus(res))
+  .then(res => resStatus(res))
 };
 
 
@@ -69,7 +69,7 @@ function patchProfile(nameProfile, job) {
       about: job
     })
   })
-  .then(res => ResStatus(res))
+  .then(res => resStatus(res))
 };
 
 function patchAvatar (urlAvatarImage) {
@@ -80,6 +80,6 @@ function patchAvatar (urlAvatarImage) {
       avatar: urlAvatarImage,
     })
   })
-  .then(res => ResStatus(res))
+  .then(res => resStatus(res))
 };
 

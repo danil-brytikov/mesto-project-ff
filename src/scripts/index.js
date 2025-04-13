@@ -22,7 +22,7 @@ const profileDescription = document.querySelector('.profile__description');
 const imageProfile = document.querySelector('.profile__image');
 const formEditCard = newCardPopup.querySelector('.popup__form');
 const namePlaceInput = formEditCard.querySelector('.popup__input_type_card-name');
-const UrlEditCard = formEditCard.querySelector('.popup__input_type_url');
+const urlEditCard = formEditCard.querySelector('.popup__input_type_url');
 const editAvatarProfile = document.querySelector('.popup_type_avatar-image');
 const formEditAvatarProfile = editAvatarProfile.querySelector('.popup__form');
 const avatarUrl = formEditAvatarProfile.querySelector('.popup__input_type_url');
@@ -40,7 +40,7 @@ let cardDel = null;
 
 Promise.all([getHostProfile(), getCardData()])
   .then(([userData, cardsArray]) => {
-    ProfileInform (userData);
+    profileInform (userData);
     getDataCards(userData, cardsArray);
   })
   .catch((err) => {
@@ -50,9 +50,9 @@ Promise.all([getHostProfile(), getCardData()])
 const handleFormSubmitEditCard = (evt) => {
   evt.preventDefault();
   saveLoad(newCardPopup, false)
-  postHostCard(namePlaceInput.value, UrlEditCard.value)
+  postHostCard(namePlaceInput.value, urlEditCard.value)
     .then ((result) => {
-      cardsContainer.prepend(createCard(result, result.owner, result.likes.slice(), openPopupImage, DeletePopup, likeCardImage, likeCard))
+      cardsContainer.prepend(createCard(result, result.owner, result.likes.slice(), openPopupImage, deletePopup, likeCardImage, likeCard))
       closePopup(newCardPopup);
     })
     .catch((err) => {
@@ -65,11 +65,11 @@ formEditCard.addEventListener('submit', handleFormSubmitEditCard);
 
 const getDataCards = (dataMyProfile, dataCards) => {
   dataCards.forEach(function (item) {
-    cardsContainer.append(createCard(item, dataMyProfile, item.likes.slice(), openPopupImage, DeletePopup, likeCardImage, likeCard));
+    cardsContainer.append(createCard(item, dataMyProfile, item.likes.slice(), openPopupImage, deletePopup, likeCardImage, likeCard));
   });
 };
 
-const ProfileInform = (data) => {
+const profileInform = (data) => {
   profileTitle.textContent = data.name;
   profileDescription.textContent = data.about;
   imageProfile.style.backgroundImage = `url(${data.avatar})`;
@@ -148,13 +148,13 @@ function handleAvatarProfileFormSubmitEdit(evt) {
 formEditAvatarProfile.addEventListener('submit', handleAvatarProfileFormSubmitEdit);
 
 // Удаленеи предупреждение
-function DeletePopup(card, cardData) {
+function deletePopup(card, cardData) {
   openPopup(popupTypeDelete);
   idCardForDel = cardData._id;
   cardDel = card;
 };
 
-function DeleteCard(id, card) {
+function deleteCardClosePop(id, card) {
   deleteHostCard(id)
     .then (() => {
       deleteCard(card);
@@ -176,5 +176,5 @@ function saveLoad(form, isLoading) {
   }
 };
 
-popupDeleteBtn.addEventListener('click', () => DeleteCard(idCardForDel, cardDel));
+popupDeleteBtn.addEventListener('click', () => deleteCardClosePop(idCardForDel, cardDel));
 enableValidation(validationConfig);

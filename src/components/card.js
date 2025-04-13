@@ -12,7 +12,7 @@ function createCard (cardContent, userProfile, likeCard, openImageModal, deleteC
 
   cardImage.src = cardContent.link;
   card.querySelector('.card__title').textContent = cardContent.name;
- 
+  cardImage.alt = `Фотография места: ${cardContent.name}`;
   likeScore.textContent = cardContent.likes.length;
   
   if (cardContent.owner._id === userProfile._id){
