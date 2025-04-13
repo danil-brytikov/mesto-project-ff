@@ -1,9 +1,12 @@
-export { openPopup , closePopup};
+export { openPopup , closePopup}
+
+
 
 function openPopup(popup) {
   popup.classList.add('popup_is-opened');
   document.addEventListener('keydown', escClose);
 }
+
 
 function closePopup (popup) {
   popup.classList.remove('popup_is-opened');
@@ -15,3 +18,4 @@ function escClose (evt) {
     closePopup(document.querySelector('.popup_is-opened'));
   }
 }
+

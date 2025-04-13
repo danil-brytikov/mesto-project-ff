@@ -19,9 +19,25 @@
   cursor: pointer;
 }
 
+.popup__button_disabled {
+  color: #000;
+  background: #FFF;
+  border: 1px solid #000;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.popup_type_del-card .popup__button {
+  margin-top: 30px;
+}
+
 @media screen and (max-width: 568px) {
   .popup__button {
     font-size: 14px;
     line-height: 17px;
+  }
+
+  .popup_type_del-card .popup__button {
+    margin-top: 30px;
   }
 }
